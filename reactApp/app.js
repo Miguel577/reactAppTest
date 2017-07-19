@@ -1,7 +1,14 @@
 import React  from 'react';
 import ReactDOM from 'react-dom';
 
-const dummyData = ["eat chipotle", "cry", "marry Lisa", "code??", "watch GOT", "shower"]
+const dummyData = [{taskText: "Eat Chipotle", completed: true},
+  {taskText: "Cry", completed: true},
+  {taskText: "Marry Lisa", completed: false},
+  {taskText: "Code (??)", completed: false},
+  {taskText: "Watch GOT", completed: false},
+  {taskText: "Shower", completed: true},
+  {taskText: "Catch 'em all", completed: false},
+  ]
 
 //individual todo item
 class Todo extends React.Component {
@@ -25,36 +32,48 @@ class TodoList extends React.Component {
   render() {
     return (
         <ul>
-          {dummyData.map((item) => <Todo task={item}>{item}</Todo>)
-        }
+          {dummyData.map((item) =>
+            item.completed ? (
+              <Todo task={<strike>{item.taskText}</strike>}></Todo>
+            ) : (
+              <Todo task={item.taskText}></Todo>
+            )
+          )}
         </ul>
     )
   }
 }
 
 //input field and submit button to add new todos
-// class InputLine extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-//   render() {
-//     return (
-//
-//     )
-//   }
-// }
+class InputLine extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <div>
+        <input type="text" value="task"></input>
+        <button type="submit">Add todo</button>
+      </div>
+
+    )
+  }
+}
 
 //big box lots of stuff in it
-// class TodoApp extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-//   render() {
-//     return (
-//
-//     )
-//   }
-// }
+class TodoApp extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <div>
+        <InputLine/>
+        <TodoList/>
+      </div>
+    )
+  }
+}
 
-ReactDOM.render(<TodoList />,
+ReactDOM.render(<TodoApp />,
    document.getElementById('root'));
